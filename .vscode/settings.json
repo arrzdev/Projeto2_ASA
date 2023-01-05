@@ -1,0 +1,22 @@
+{
+  "files.associations": {
+    "*.pl": "prolog",
+    "tuple": "cpp",
+    "any": "cpp",
+    "array": "cpp",
+    "charconv": "cpp",
+    "chrono": "cpp",
+    "compare": "cpp",
+    "functional": "cpp",
+    "memory_resource": "cpp",
+    "ratio": "cpp",
+    "scoped_allocator": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp",
+    "variant": "cpp",
+    "*.tcc": "cpp",
+    "memory": "cpp",
+    "future": "cpp",
+    "istream": "cpp"
+  }
+}
