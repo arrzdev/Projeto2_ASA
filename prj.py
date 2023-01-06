@@ -1,35 +1,26 @@
-from typing import List, Tuple
-import heapq
+def find(parent, vertex):
+  if parent[vertex] != vertex:
+    parent[vertex] = find(parent, parent[vertex])
+  return parent[vertex]
 
-class DisjointSet:
-  def __init__(self, n: int):
-    self.parent = {i: i for i in range(n + 1)}
+def union(parent, u, v):
+  xroot = find(parent, u)
+  yroot = find(parent, v)
+  parent[xroot] = yroot
 
-  def find(self, x: int) -> int:
-    if self.parent[x] != x:
-      self.parent[x] = self.find(self.parent[x])
-    return self.parent[x]
+def prj(edges, vertices):
+  edges.sort(key=lambda x: x[2], reverse=True)
 
-  def union(self, x: int, y: int) -> None:
-    xroot = self.find(x)
-    yroot = self.find(y)
-    if xroot == yroot:
-      return
-    self.parent[xroot] = yroot
+  parent = [i for i in range(vertices+1)]
 
-def prj(edges: List[Tuple[int, int, int]], vertices: int) -> int:
-  ds = DisjointSet(vertices)
-  heap = [(w, u, v) for u, v, w in edges]
-  heapq.heapify(heap)
+  total_transactions = 0
+  for edge in edges:
+    u, v, w = edge
+    if find(parent, u) != find(parent, v):
+      total_transactions += w
+      union(parent, u, v)
 
-  count = 0
-  while heap:
-    w, u, v = heapq.heappop(heap)
-    if ds.find(u) != ds.find(v):
-      count += w
-      ds.union(u, v)
-
-  return count
+  return total_transactions
 
 def main():
   vertices = int(input())
@@ -39,3 +30,6 @@ def main():
     edges.append(tuple(map(int, input().split())))
 
   print(prj(edges, vertices))
+
+if __name__ == '__main__':
+  main()
